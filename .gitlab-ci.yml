@@ -28,6 +28,7 @@ publish:
   allow_failure: true
   only:
     - master
+    - feature/initial-commit
   needs: [ "build" ]
   stage: publish
   script:
