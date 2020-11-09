@@ -21,12 +21,14 @@
   },
   "dependencies": {
     "@wnm.development/fortnite-api": "^1.0.3",
+    "amqplib": "^0.6.0",
     "pg": "^8.4.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.22.3",
     "sequelize-typescript": "^1.1.0"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.5.16",
     "@types/bluebird": "^3.5.32",
     "@types/node": "^14.11.8",
     "@types/validator": "^13.1.0",
