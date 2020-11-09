@@ -1,0 +1,12 @@
+.idea
+src
+.gitlab-ci.yml
+tsconfig.json
+node_modules
+.eslintignore
+.eslintrc.js
+.editorconfig
+tslint.json
+jest.config.js
+dist/tests
+coverage

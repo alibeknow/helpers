@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2019",
+    "strictNullChecks": true,
+    "declaration": true,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "@types/node",
+      "@types/jest"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "./dist"
+  ]
+}

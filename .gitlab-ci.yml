@@ -1,0 +1,39 @@
+image: node:12-alpine
+
+variables:
+  DEPLOY_TOKEN: ${CI_JOB_TOKEN}
+
+stages:
+  - build
+  - publish
+
+build:
+  stage: build
+  script:
+    - apk add python make g++
+    - echo '//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}'>.npmrc
+    - npm config set @wnm.development:registry https://gitlab.com/api/v4/packages/npm/
+    - npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' "${DEPLOY_TOKEN}"
+    - npm install
+    - npm run build
+  cache:
+    paths:
+      - node_modules
+  artifacts:
+    paths:
+      - dist/
+      - node_modules
+
+publish:
+  allow_failure: true
+  only:
+    - master
+  needs: [ "build" ]
+  stage: publish
+  script:
+    - apk add jq
+    - export TAG=$(cat package.json | jq -r .tag)
+    - echo '//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}'>.npmrc
+    - npm config set @wnm.development:registry https://gitlab.com/api/v4/packages/npm/
+    - npm config set '//gitlab.com/api/v4/packages/npm/:_authToken' "${DEPLOY_TOKEN}"
+    - npm publish --tag=$TAG
