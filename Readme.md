@@ -4,3 +4,4 @@
 
 [Установка и использование](docs/Usage.md)
 [Работа с sequelize](docs/Sequelize.md)
+[Изменение кода внутри библиотеки](docs/Contributing.md)
