@@ -11,8 +11,7 @@
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
     "types": [
-      "@types/node",
-      "@types/jest"
+      "@types/node"
     ]
   },
   "exclude": [
