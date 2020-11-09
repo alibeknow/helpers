@@ -31,7 +31,7 @@ export interface Tasks {
   wednesdayTasks: IncludedTasks;
   thursdayTasks: IncludedTasks;
   fridayTasks: IncludedTasks;
-  saturadyTasks: IncludedTasks;
+  saturdayTasks: IncludedTasks;
   sundayTasks: IncludedTasks;
   communityGoalTasks: IncludedTasks;
 }
