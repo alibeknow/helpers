@@ -76,8 +76,8 @@ export class SPUser extends Model<SPUser> {
   stats: SPStats[]
 
   @HasMany(() => SPUserDay, { onDelete: 'cascade' })
-  days: SPUserDay
+  days: SPUserDay[]
 
   @HasMany(() => SPUserTask, { onDelete: 'cascade' })
-  tasks: SPUserTask
+  tasks: SPUserTask[]
 }
