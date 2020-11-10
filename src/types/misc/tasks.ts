@@ -1,4 +1,4 @@
-import { FNStatsItemsKeys, FNStatsModesKeys } from '@wnm.development/fortnite-api'
+import { FNStatsAllModesKeys, FNStatsItemsKeys } from '@wnm.development/fortnite-api'
 
 export type ISPTaskType = 'community-goal' | 'additional' | 'creator-pass'
 
@@ -26,4 +26,4 @@ export type ISPTaskTwitchConditions =
 
 export type ISPTaskCondition =
   | { type: 'twitch', condition: ISPTaskTwitchConditions }
-  | { type: 'fortnite', modes: FNStatsModesKeys | FNStatsModesKeys[] | 'all', fields: FNStatsItemsKeys | FNStatsItemsKeys[] }
+  | { type: 'fortnite', modes: FNStatsAllModesKeys | FNStatsAllModesKeys[] | 'all', fields: FNStatsItemsKeys | FNStatsItemsKeys[] }
