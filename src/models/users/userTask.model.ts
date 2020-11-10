@@ -37,8 +37,8 @@ export class SPUserTask extends Model<SPUserTask> {
   @Column(DataType.INTEGER)
   dayId: number
 
-  @BelongsTo(() => SPTask, { onDelete: 'cascade' })
-  day: SPTask
+  @BelongsTo(() => SPUserDay, { onDelete: 'cascade' })
+  day: SPUserDay
 
   @ForeignKey(() => SPUser)
   @AllowNull(false)

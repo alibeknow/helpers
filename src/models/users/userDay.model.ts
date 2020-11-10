@@ -4,13 +4,14 @@ import {
   Column,
   DataType,
   Default,
-  ForeignKey,
+  ForeignKey, HasMany,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript'
 import { ISPTaskDays } from '../../types/misc'
 import { SPUser } from './user.model'
+import { SPUserTask } from './userTask.model'
 
 @Table({
   tableName: 'users-days'
@@ -37,4 +38,7 @@ export class SPUserDay extends Model<SPUserDay> {
 
   @BelongsTo(() => SPUser, { onDelete: 'cascade' })
   user: SPUser
+
+  @HasMany(() => SPUserTask, {onDelete: 'cascade'})
+  tasks: SPUserTask[]
 }
