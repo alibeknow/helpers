@@ -33,6 +33,11 @@ export class SPUserTask extends Model<SPUserTask> {
   @Column(DataType.BOOLEAN)
   completed: boolean
 
+  @Default(false)
+  @AllowNull(false)
+  @Column(DataType.BOOLEAN)
+  awardGiven: boolean
+
   @ForeignKey(() => SPUserDay)
   @Column(DataType.INTEGER)
   dayId: number

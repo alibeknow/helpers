@@ -31,6 +31,11 @@ export class SPTwitchCreatorTask extends Model<SPTwitchCreatorTask> {
   @Column(DataType.BOOLEAN)
   completed: boolean
 
+  @Default(false)
+  @AllowNull(false)
+  @Column(DataType.BOOLEAN)
+  awardGiven: boolean
+
   @ForeignKey(() => SPTask)
   @AllowNull(false)
   @Column(DataType.INTEGER)
