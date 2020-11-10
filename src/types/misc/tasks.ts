@@ -1,7 +1,16 @@
 import { FNStatsItemsKeys, FNStatsModesKeys } from '@wnm.development/fortnite-api'
 
 export type ISPTaskType = 'community-goal' | 'additional' | 'creator-pass'
-export type ISPTaskDays = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun'
+
+export enum ISPTaskDays {
+  mon = 1,
+  tue,
+  wed,
+  thu,
+  fri,
+  sat,
+  sun
+}
 
 export type ISPTaskTwitchConditions =
   | 'linkAccount'

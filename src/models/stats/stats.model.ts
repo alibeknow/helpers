@@ -26,6 +26,10 @@ export class SPStats extends Model<SPStats> {
   @Column(DataType.BOOLEAN)
   isFortniteAccountClosed: boolean
 
+  @AllowNull(false)
+  @Column(DataType.BOOLEAN)
+  isInitial: boolean
+
   @Index
   @ForeignKey(() => SPUser)
   @AllowNull(false)
