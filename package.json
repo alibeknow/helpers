@@ -20,7 +20,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-    "@wnm.development/fortnite-api": "^1.1.0",
+    "@wnm.development/fortnite-api": "^1.1.1",
     "amqplib": "^0.6.0",
     "pg": "^8.4.1",
     "reflect-metadata": "^0.1.13",
