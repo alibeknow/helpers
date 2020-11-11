@@ -4,7 +4,7 @@ import { SPTask, SPTwitchCreatorTask, SPUser, SPUserDay, SPUserTask } from '../.
 import type { SPModelsHelper } from './index'
 import { FindOptions, WhereOptions } from 'sequelize'
 import { ISPTaskDays, ISPUser, ISPUserDay } from '@wnm.development/fortnite-social-pass-types'
-import { SPGetCurrentDay } from '../user'
+import { SPFilterUserDays, SPGetCurrentDay } from '../user'
 
 export class SPModelsHelperUser {
   sequelize: Sequelize
@@ -71,7 +71,8 @@ export class SPModelsHelperUser {
 
   private async createUserDays(tasks: SPTask[]): Promise<ISPUserDay[]> {
     let currentDay: null | SPUserDay = null
-    for (const day of this.user.days) {
+    const filteredDays = SPFilterUserDays(this.user, this.user.days)
+    for (const day of filteredDays) {
       if (day.completed) continue
       if ((day.day === ISPTaskDays.sun || day.day === ISPTaskDays.sat) && SPGetCurrentDay() < 5) continue
 
@@ -80,8 +81,8 @@ export class SPModelsHelperUser {
     }
 
     const days: ISPUserDay[] = []
-    for (let i = 0; i < this.user.days.length; i++) {
-      const day = this.user.days[i]
+    for (let i = 0; i < filteredDays.length; i++) {
+      const day = filteredDays[i]
 
       const dayTasks: [SPUserTask, SPTask][] = this.user.tasks.filter(x => x.dayId === day.id).map(task => {
         const originalTask = tasks.find(x => x.id === task.taskId)
