@@ -2,6 +2,7 @@ import {
   AllowNull,
   AutoIncrement,
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   ForeignKey,
@@ -20,6 +21,7 @@ import { SPStats } from '../stats/Stats.model'
 import { SPUserDay } from './UserDay.model'
 import { SPUserTask } from './UserTask.model'
 import { ISPUserPassType } from '@wnm.development/fortnite-social-pass-types'
+import { SPUserEmote } from './userEmotes.model'
 
 const indexOptions: IndexOptions = {
   type: 'UNIQUE',
@@ -67,7 +69,7 @@ export class SPUser extends Model<SPUser> {
   @Column(DataType.ENUM('SOCIAL', 'FAN'))
   passType: ISPUserPassType
 
-  @HasMany(() => SPEmote)
+  @BelongsToMany(() => SPEmote, () => SPUserEmote)
   emotes: SPEmote[]
 
   @HasMany(() => SPUserDrops)
