@@ -146,7 +146,7 @@ export class SPModelsHelperUser {
       twitchUserId: this.user.twitchUserId,
       additionalTasks: await Promise.all(additionalTasks.map(tasks => this.instance.tasks.createTaskFromModel(...tasks))),
       creatorTasks: await Promise.all(creatorTasks.map(tasks => this.instance.tasks.createTaskFromModel(...tasks))),
-      days: [],
+      days: await this.createUserDays(tasks),
     }
   }
 }
