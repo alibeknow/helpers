@@ -28,9 +28,8 @@ export class SPTask extends Model<SPTask> {
   @Column(DataType.ENUM('community-goal', 'additional', 'creator-pass'))
   type: ISPTaskType
 
-  @AllowNull(false)
   @Column(DataType.INTEGER)
-  day: ISPTaskDays
+  day: ISPTaskDays | null
 
   @AllowNull(false)
   @Column(DataType.JSON)
