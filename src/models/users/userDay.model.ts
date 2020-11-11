@@ -4,7 +4,7 @@ import {
   Column,
   DataType,
   Default,
-  ForeignKey, HasMany,
+  ForeignKey, HasMany, Index,
   Model,
   PrimaryKey,
   Table,
@@ -23,7 +23,7 @@ export class SPUserDay extends Model<SPUserDay> {
   id: number
 
   @AllowNull(false)
-  @Column(DataType.TEXT)
+  @Column(DataType.INTEGER)
   day: ISPTaskDays
 
   @Default(false)
@@ -31,6 +31,7 @@ export class SPUserDay extends Model<SPUserDay> {
   @Column(DataType.BOOLEAN)
   completed: boolean
 
+  @Index
   @ForeignKey(() => SPUser)
   @AllowNull(false)
   @Column(DataType.INTEGER)

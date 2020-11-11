@@ -29,7 +29,7 @@ export class SPTask extends Model<SPTask> {
   type: ISPTaskType
 
   @AllowNull(false)
-  @Column(DataType.TEXT)
+  @Column(DataType.INTEGER)
   day: ISPTaskDays
 
   @AllowNull(false)

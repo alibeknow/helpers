@@ -38,7 +38,7 @@ export class SPRabbitMQ {
     throw new Error('You have to call init function before making any of RabbitMQ actions')
   }
 
-  async sendMessage<T extends Record<string, any> | string>(message: T, queue?: string): Promise<void> {
+  sendMessage<T extends Record<string, any> | string>(message: T, queue?: string): Promise<void> {
     return this.sendMessages<T>([message], queue)
   }
 

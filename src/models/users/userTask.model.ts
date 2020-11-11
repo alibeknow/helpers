@@ -5,7 +5,7 @@ import {
   Column,
   DataType,
   Default,
-  ForeignKey,
+  ForeignKey, Index,
   Model,
   PrimaryKey,
   Table,
@@ -38,6 +38,7 @@ export class SPUserTask extends Model<SPUserTask> {
   @Column(DataType.BOOLEAN)
   awardGiven: boolean
 
+  @Index
   @ForeignKey(() => SPUserDay)
   @Column(DataType.INTEGER)
   dayId: number
@@ -45,6 +46,7 @@ export class SPUserTask extends Model<SPUserTask> {
   @BelongsTo(() => SPUserDay, { onDelete: 'cascade' })
   day: SPUserDay
 
+  @Index
   @ForeignKey(() => SPUser)
   @AllowNull(false)
   @Column(DataType.INTEGER)

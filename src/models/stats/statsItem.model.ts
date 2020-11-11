@@ -10,7 +10,7 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript'
-import { FNStatsItemsKeys, FNStatsModesKeys } from '@wnm.development/fortnite-api'
+import { FNStatsAllModesKeys, FNStatsItemsKeys, FNStatsModesKeys } from '@wnm.development/fortnite-api'
 import { SPStats } from './stats.model'
 
 @Table({
@@ -24,7 +24,7 @@ export class SPStatsItem extends Model<SPStatsItem> {
 
   @AllowNull(false)
   @Column(DataType.TEXT)
-  mode: FNStatsModesKeys
+  mode: FNStatsAllModesKeys
 
   @AllowNull(false)
   @Column(DataType.TEXT)

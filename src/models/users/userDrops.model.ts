@@ -1,4 +1,14 @@
-import { AllowNull, BelongsTo, Column, DataType, ForeignKey, Model, PrimaryKey, Table } from 'sequelize-typescript'
+import {
+  AllowNull,
+  BelongsTo,
+  Column,
+  DataType,
+  ForeignKey,
+  Index,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript'
 import { SPUser } from './user.model'
 
 @Table({
@@ -13,6 +23,7 @@ export class SPUserDrops extends Model<SPUserDrops> {
   @Column(DataType.TEXT)
   benefitId: string
 
+  @Index
   @ForeignKey(() => SPUser)
   @Column({
     type: DataType.TEXT,
