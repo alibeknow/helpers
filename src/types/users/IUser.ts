@@ -1,9 +1,10 @@
-import { ITwitchAuth } from './ITwitchAuth';
+import { ITwitchAuth } from './ITwitchAuth'
 
 enum passType {
   'SOCIAL',
   'FAN',
 }
+
 export interface IUser {
   id: number;
   epicUserId: string;
@@ -13,10 +14,12 @@ export interface IUser {
   emotes: Emotes[];
   tasksProgress: Tasks;
 }
+
 export interface Emotes {
   id: number;
   code: string;
 }
+
 export interface Creator {
   id: number;
   twitchUserId: string;
@@ -25,6 +28,7 @@ export interface Creator {
   urlToken: string;
   gameId: number;
 }
+
 export interface Tasks {
   mondayTasks: IncludedTasks;
   tuesdayTasks: IncludedTasks;
@@ -35,6 +39,7 @@ export interface Tasks {
   sundayTasks: IncludedTasks;
   communityGoalTasks: IncludedTasks;
 }
+
 interface IncludedTasks {
   twitch: number;
   fortnite: number;
@@ -43,6 +48,7 @@ interface IncludedTasks {
 export interface ICountUsers {
   count: ICountUsersAr[];
 }
+
 export interface ICountUsersAr {
   creator_id: number | null;
   counts: number;
