@@ -19,11 +19,36 @@ export class SPModelsHelperUser {
     this.instance = instance
   }
 
+  static getUserRelationsFindOptions(sequelize: Sequelize): FindOptions {
+    return {
+      order: [
+        [{ model: sequelize.getRepository(SPUserDay), as: 'days' }, 'day', 'ASC'],
+        [{ model: sequelize.getRepository(SPUserTask), as: 'tasks' }, 'id', 'ASC'],
+      ],
+      include: [
+        sequelize.getRepository(SPUserTask),
+        sequelize.getRepository(SPUserDay),
+      ],
+    }
+  }
+
+  static findUserWithRelations(user: SPUser | number, sequelize: Sequelize, findOptions: WhereOptions = {}): Promise<SPUser> {
+    return sequelize.getRepository(SPUser).findOne(
+      {
+        ...SPModelsHelperUser.getUserRelationsFindOptions(sequelize),
+        where: {
+          id: typeof user === 'number' ? user : user.id,
+          ...findOptions,
+        },
+      },
+    )
+  }
+
   getUserRelationsFindOptions(): FindOptions {
     return {
       order: [
-        [{ model: SPUserDay, as: 'days' }, 'day', 'ASC'],
-        [{ model: SPUserTask, as: 'tasks' }, 'id', 'ASC'],
+        [{ model: this.sequelize.getRepository(SPUserDay), as: 'days' }, 'day', 'ASC'],
+        [{ model: this.sequelize.getRepository(SPUserTask), as: 'tasks' }, 'id', 'ASC'],
       ],
       include: [
         this.sequelize.getRepository(SPUserTask),
