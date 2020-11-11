@@ -10,12 +10,12 @@ import {
     PrimaryKey,
     Table,
 } from "sequelize-typescript";
-import { SPUser } from "./User.model";
+import { SPUser } from "../users/User.model";
 
 @Table({
-    modelName: "faq",
+    tableName: "faq",
 })
-export class Faq extends Model<Faq> {
+export class SPFaq extends Model<SPFaq> {
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.INTEGER)
