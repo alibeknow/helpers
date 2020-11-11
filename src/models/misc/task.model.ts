@@ -25,7 +25,7 @@ export class SPTask extends Model<SPTask> {
   needed: number
 
   @AllowNull(false)
-  @Column(DataType.TEXT)
+  @Column(DataType.ENUM('community-goal', 'additional', 'creator-pass'))
   type: ISPTaskType
 
   @AllowNull(false)
