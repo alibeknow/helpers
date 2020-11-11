@@ -21,7 +21,7 @@ import { SPStats } from '../stats/Stats.model'
 import { SPUserDay } from './UserDay.model'
 import { SPUserTask } from './UserTask.model'
 import { ISPUserPassType } from '@wnm.development/fortnite-social-pass-types'
-import { SPUserEmote } from './userEmotes.model'
+import { SPUserEmote } from './UserEmote.model'
 
 const indexOptions: IndexOptions = {
   type: 'UNIQUE',
