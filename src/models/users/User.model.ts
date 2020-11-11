@@ -22,7 +22,7 @@ import { SPUserDay } from "./UserDay.model";
 import { SPUserTask } from "./UserTask.model";
 import { ISPUserPassType } from "@wnm.development/fortnite-social-pass-types";
 import { SPUserEmote } from "./UserEmote.model";
-import { Faq } from "../misc/Faq.model";
+import { SPFaq } from '../misc/Faq.model'
 
 const indexOptions: IndexOptions = {
     type: "UNIQUE",
@@ -84,6 +84,7 @@ export class SPUser extends Model<SPUser> {
 
     @HasMany(() => SPUserTask, { onDelete: "cascade" })
     tasks: SPUserTask[];
-    @HasMany(() => SPUserTask, { onDelete: "cascade" })
-    Faqs: Faq[];
+
+    @HasMany(() => SPFaq, { onDelete: "cascade" })
+    faq: SPFaq[];
 }
