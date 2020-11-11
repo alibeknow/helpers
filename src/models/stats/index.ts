@@ -1,2 +1,2 @@
-export {SPStats} from './stats.model'
-export {SPStatsItem} from './statsItem.model'
+export {SPStats} from './Stats.model'
+export {SPStatsItem} from './StatsItem.model'

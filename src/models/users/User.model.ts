@@ -13,12 +13,12 @@ import {
   Table,
   Unique,
 } from 'sequelize-typescript'
-import { SPTwitchCreator } from '../misc/twitchCreator.model'
-import { SPEmote } from '../misc/emote.model'
-import { SPUserDrops } from './userDrops.model'
-import { SPStats } from '../stats/stats.model'
-import { SPUserDay } from './userDay.model'
-import { SPUserTask } from './userTask.model'
+import { SPTwitchCreator } from '../misc/TwitchCreator.model'
+import { SPEmote } from '../misc/Emote.model'
+import { SPUserDrops } from './UserDrops.model'
+import { SPStats } from '../stats/Stats.model'
+import { SPUserDay } from './UserDay.model'
+import { SPUserTask } from './UserTask.model'
 import { ISPUserPassType } from '@wnm.development/fortnite-social-pass-types'
 
 const indexOptions: IndexOptions = {

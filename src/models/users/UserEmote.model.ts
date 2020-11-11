@@ -10,7 +10,7 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript'
-import { SPUser } from './user.model'
+import { SPUser } from './User.model'
 import { SPEmote } from '../misc'
 
 const emoteIndexOptions: IndexOptions = {

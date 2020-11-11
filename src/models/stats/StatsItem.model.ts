@@ -11,7 +11,7 @@ import {
   Table,
 } from 'sequelize-typescript'
 import { FNStatsAllModesKeys, FNStatsItemsKeys, FNStatsModesKeys } from '@wnm.development/fortnite-api'
-import { SPStats } from './stats.model'
+import { SPStats } from './Stats.model'
 
 @Table({
   tableName: 'stats-items',

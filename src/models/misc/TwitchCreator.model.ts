@@ -11,8 +11,8 @@ import {
   Unique,
 } from 'sequelize-typescript'
 import { ITwitchAuth } from '@wnm.development/fortnite-social-pass-types'
-import { SPUser } from '../users/user.model'
-import { SPTwitchCreatorTask } from './twitchCreatorTask.model'
+import { SPUser } from '../users/User.model'
+import { SPTwitchCreatorTask } from './TwitchCreatorTask.model'
 
 @Table({
   tableName: 'creators',

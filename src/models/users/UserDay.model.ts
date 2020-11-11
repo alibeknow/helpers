@@ -9,8 +9,8 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript'
-import { SPUser } from './user.model'
-import { SPUserTask } from './userTask.model'
+import { SPUser } from './User.model'
+import { SPUserTask } from './UserTask.model'
 import { ISPTaskDays } from '@wnm.development/fortnite-social-pass-types'
 
 @Table({

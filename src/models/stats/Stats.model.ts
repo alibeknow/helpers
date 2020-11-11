@@ -11,8 +11,8 @@ import {
   PrimaryKey,
   Table,
 } from 'sequelize-typescript'
-import { SPStatsItem } from './statsItem.model'
-import { SPUser } from '../users/user.model'
+import { SPStatsItem } from './StatsItem.model'
+import { SPUser } from '../users/User.model'
 
 @Table({
   tableName: 'stats',

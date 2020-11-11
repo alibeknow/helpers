@@ -5,19 +5,17 @@ import {
   Column,
   DataType,
   Default,
-  ForeignKey, Index,
+  ForeignKey,
   Model,
-  PrimaryKey,
-  Table,
+  PrimaryKey, Table,
 } from 'sequelize-typescript'
-import { SPTask } from '../misc'
-import { SPUserDay } from './userDay.model'
-import { SPUser } from './user.model'
+import { SPTwitchCreator } from './TwitchCreator.model'
+import { SPTask } from './Task.model'
 
 @Table({
-  tableName: 'users-tasks',
+  tableName: 'creators-tasks'
 })
-export class SPUserTask extends Model<SPUserTask> {
+export class SPTwitchCreatorTask extends Model<SPTwitchCreatorTask> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
@@ -38,23 +36,6 @@ export class SPUserTask extends Model<SPUserTask> {
   @Column(DataType.BOOLEAN)
   awardGiven: boolean
 
-  @Index
-  @ForeignKey(() => SPUserDay)
-  @Column(DataType.INTEGER)
-  dayId: number
-
-  @BelongsTo(() => SPUserDay, { onDelete: 'cascade' })
-  day: SPUserDay
-
-  @Index
-  @ForeignKey(() => SPUser)
-  @AllowNull(false)
-  @Column(DataType.INTEGER)
-  userId: number
-
-  @BelongsTo(() => SPUser, { onDelete: 'cascade' })
-  user: SPUser
-
   @ForeignKey(() => SPTask)
   @AllowNull(false)
   @Column(DataType.INTEGER)
@@ -62,4 +43,12 @@ export class SPUserTask extends Model<SPUserTask> {
 
   @BelongsTo(() => SPTask, { onDelete: 'cascade' })
   task: SPTask
+
+  @ForeignKey(() => SPTwitchCreator)
+  @AllowNull(false)
+  @Column(DataType.INTEGER)
+  creatorId: number
+
+  @BelongsTo(() => SPTwitchCreator, { onDelete: 'cascade' })
+  creator: SPTwitchCreator
 }

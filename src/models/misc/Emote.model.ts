@@ -1,6 +1,6 @@
 import { AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table, Unique } from 'sequelize-typescript'
-import { SPUserEmote } from '../users/userEmotes.model'
-import { SPUser } from '../users/user.model'
+import { SPUserEmote } from '../users/UserEmote.model'
+import { SPUser } from '../users/User.model'
 
 @Table({
   tableName: 'emotes',

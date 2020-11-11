@@ -1,7 +1,7 @@
 import { AllowNull, AutoIncrement, Column, DataType, HasMany, Model, PrimaryKey, Table } from 'sequelize-typescript'
 import { ISPTaskCondition, ISPTaskDays, ISPTaskType } from '@wnm.development/fortnite-social-pass-types'
 import { SPUserTask } from '../users'
-import { SPTwitchCreatorTask } from './twitchCreatorTask.model'
+import { SPTwitchCreatorTask } from './TwitchCreatorTask.model'
 
 @Table({
   modelName: 'task',
