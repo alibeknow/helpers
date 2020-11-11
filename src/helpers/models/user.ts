@@ -2,9 +2,8 @@ import { Sequelize } from 'sequelize-typescript'
 import { Redis } from 'ioredis'
 import { SPTask, SPTwitchCreatorTask, SPUser, SPUserDay, SPUserTask } from '../../models'
 import type { SPModelsHelper } from './index'
-import { ISPUser, ISPUserDay } from '../../types/misc/models'
 import { FindOptions, WhereOptions } from 'sequelize'
-import { ISPTaskDays } from '../../types'
+import { ISPTaskDays, ISPUser, ISPUserDay } from '@wnm.development/fortnite-social-pass-types'
 import { SPGetCurrentDay } from '../user'
 
 export class SPModelsHelperUser {

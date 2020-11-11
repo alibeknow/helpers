@@ -1,5 +1,5 @@
 import { SPUser, SPUserDay } from '../models/users'
-import { ISPTaskDays } from '../types/misc'
+import { ISPTaskDays } from '@wnm.development/fortnite-social-pass-types'
 import { SPStartDate } from './constants'
 
 interface timeoutReturn {

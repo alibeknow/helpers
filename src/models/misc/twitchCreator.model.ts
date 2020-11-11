@@ -10,7 +10,7 @@ import {
   Table,
   Unique,
 } from 'sequelize-typescript'
-import { ITwitchAuth } from '../../types/users'
+import { ITwitchAuth } from '@wnm.development/fortnite-social-pass-types'
 import { SPUser } from '../users/user.model'
 import { SPTwitchCreatorTask } from './twitchCreatorTask.model'
 

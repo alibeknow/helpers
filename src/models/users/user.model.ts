@@ -19,6 +19,7 @@ import { SPUserDrops } from './userDrops.model'
 import { SPStats } from '../stats/stats.model'
 import { SPUserDay } from './userDay.model'
 import { SPUserTask } from './userTask.model'
+import { ISPUserPassType } from '@wnm.development/fortnite-social-pass-types'
 
 const indexOptions: IndexOptions = {
   type: 'UNIQUE',
@@ -64,7 +65,7 @@ export class SPUser extends Model<SPUser> {
 
   @AllowNull(false)
   @Column(DataType.ENUM('SOCIAL', 'FAN'))
-  passType: 'SOCIAL' | 'FAN'
+  passType: ISPUserPassType
 
   @HasMany(() => SPEmote)
   emotes: SPEmote[]

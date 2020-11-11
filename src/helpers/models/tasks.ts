@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript'
 import { Redis } from 'ioredis'
-import { ISPTask } from '../../types/misc/models'
+import { ISPTask } from '@wnm.development/fortnite-social-pass-types'
 import { SPTask, SPTwitchCreatorTask, SPUserTask } from '../../models'
 import {
   FNStatsAllModesKeys,

@@ -2,7 +2,7 @@ import { Model, Sequelize } from 'sequelize-typescript'
 import { Redis } from 'ioredis'
 import { SPEmote, SPTask, SPTwitchCreator, SPTwitchCreatorTask } from '../../models'
 import { getCreatorsKey, getEmotesKey, getTasksKey, getUserKey } from '../redis-keys'
-import { ISPUser } from '../../types/misc/models'
+import { ISPUser } from '@wnm.development/fortnite-social-pass-types'
 
 interface GetKeyFromRedisOptions<T extends Record<string, any> | any[]> {
   key: string
