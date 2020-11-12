@@ -1,20 +1,20 @@
-import { AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table, Unique } from 'sequelize-typescript'
-import { SPUserEmote } from '../users/UserEmote.model'
-import { SPUser } from '../users/User.model'
+import { AllowNull, BelongsToMany, Column, DataType, Model, PrimaryKey, Table, Unique } from "sequelize-typescript";
+import { SPUserEmote } from "../users/UserEmote.model";
+import { SPUser } from "../users/User.model";
 
 @Table({
-  tableName: 'emotes',
+  tableName: "emotes"
 })
 export class SPEmote extends Model<SPEmote> {
   @PrimaryKey
   @Column(DataType.INTEGER)
-  id: number
+  id: number;
 
   @Unique
   @AllowNull(false)
   @Column(DataType.TEXT)
-  code: string
+  code: string;
 
   @BelongsToMany(() => SPUser, () => SPUserEmote)
-  users: SPUser[]
+  users: SPUser[];
 }

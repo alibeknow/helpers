@@ -1,45 +1,48 @@
 import {
   AllowNull,
-  AutoIncrement, BelongsTo,
+  AutoIncrement,
+  BelongsTo,
   Column,
   DataType,
   Default,
-  ForeignKey, HasMany, Index,
+  ForeignKey,
+  HasMany,
+  Index,
   Model,
   PrimaryKey,
-  Table,
-} from 'sequelize-typescript'
-import { SPUser } from './User.model'
-import { SPUserTask } from './UserTask.model'
-import { ISPTaskDays } from '@wnm.development/fortnite-social-pass-types'
+  Table
+} from "sequelize-typescript";
+import { SPUser } from "./User.model";
+import { SPUserTask } from "./UserTask.model";
+import { ISPTaskDays } from "@wnm.development/fortnite-social-pass-types";
 
 @Table({
-  tableName: 'users-days'
+  tableName: "users-days"
 })
 export class SPUserDay extends Model<SPUserDay> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-  id: number
+  id: number;
 
   @AllowNull(false)
   @Column(DataType.INTEGER)
-  day: ISPTaskDays
+  day: ISPTaskDays;
 
   @Default(false)
   @AllowNull(false)
   @Column(DataType.BOOLEAN)
-  completed: boolean
+  completed: boolean;
 
   @Index
   @ForeignKey(() => SPUser)
   @AllowNull(false)
   @Column(DataType.INTEGER)
-  userId: number
+  userId: number;
 
-  @BelongsTo(() => SPUser, { onDelete: 'cascade' })
-  user: SPUser
+  @BelongsTo(() => SPUser, { onDelete: "cascade" })
+  user: SPUser;
 
-  @HasMany(() => SPUserTask, {onDelete: 'cascade'})
-  tasks: SPUserTask[]
+  @HasMany(() => SPUserTask, { onDelete: "cascade" })
+  tasks: SPUserTask[];
 }

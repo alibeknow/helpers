@@ -9,36 +9,36 @@ import {
   Index,
   Model,
   PrimaryKey,
-  Table,
-} from 'sequelize-typescript'
-import { SPStatsItem } from './StatsItem.model'
-import { SPUser } from '../users/User.model'
+  Table
+} from "sequelize-typescript";
+import { SPStatsItem } from "./StatsItem.model";
+import { SPUser } from "../users/User.model";
 
 @Table({
-  tableName: 'stats',
+  tableName: "stats"
 })
 export class SPStats extends Model<SPStats> {
   @PrimaryKey
   @AutoIncrement
   @Column(DataType.INTEGER)
-  id: number
+  id: number;
 
   @Column(DataType.BOOLEAN)
-  isFortniteAccountClosed: boolean
+  isFortniteAccountClosed: boolean;
 
   @AllowNull(false)
   @Column(DataType.BOOLEAN)
-  isInitial: boolean
+  isInitial: boolean;
 
   @Index
   @ForeignKey(() => SPUser)
   @AllowNull(false)
   @Column(DataType.INTEGER)
-  userId: number
+  userId: number;
 
-  @BelongsTo(() => SPUser, { onDelete: 'cascade' })
-  user: SPUser
+  @BelongsTo(() => SPUser, { onDelete: "cascade" })
+  user: SPUser;
 
-  @HasMany(() => SPStatsItem, { onDelete: 'cascade' })
-  items: SPStatsItem[]
+  @HasMany(() => SPStatsItem, { onDelete: "cascade" })
+  items: SPStatsItem[];
 }

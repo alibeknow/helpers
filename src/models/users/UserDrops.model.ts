@@ -7,35 +7,35 @@ import {
   Index,
   Model,
   PrimaryKey,
-  Table,
-} from 'sequelize-typescript'
-import { SPUser } from './User.model'
+  Table
+} from "sequelize-typescript";
+import { SPUser } from "./User.model";
 
 @Table({
-  tableName: 'users-drops',
+  tableName: "users-drops"
 })
 export class SPUserDrops extends Model<SPUserDrops> {
   @PrimaryKey
   @Column(DataType.TEXT)
-  id: string
+  id: string;
 
   @AllowNull(false)
   @Column(DataType.TEXT)
-  benefitId: string
+  benefitId: string;
 
   @Index
   @ForeignKey(() => SPUser)
   @Column({
     type: DataType.TEXT,
-    references: { key: 'twitchUserId', model: 'users' },
+    references: { key: "twitchUserId", model: "users" }
   })
-  userTwitchId: string
+  userTwitchId: string;
 
   @BelongsTo(() => SPUser, {
-    foreignKey: 'userTwitchId',
+    foreignKey: "userTwitchId"
   })
-  user: SPUser
+  user: SPUser;
 
   @Column(DataType.RANGE(DataType.DATE))
-  timestamp: Date
+  timestamp: Date;
 }

@@ -8,38 +8,38 @@ import {
   Index,
   Model,
   PrimaryKey,
-  Table,
-} from 'sequelize-typescript'
-import { FNStatsAllModesKeys, FNStatsItemsKeys, FNStatsModesKeys } from '@wnm.development/fortnite-api'
-import { SPStats } from './Stats.model'
+  Table
+} from "sequelize-typescript";
+import { FNStatsAllModesKeys, FNStatsItemsKeys } from "@wnm.development/fortnite-api";
+import { SPStats } from "./Stats.model";
 
 @Table({
-  tableName: 'stats-items',
+  tableName: "stats-items"
 })
 export class SPStatsItem extends Model<SPStatsItem> {
   @PrimaryKey
   @AutoIncrement
   @Column(DataType.INTEGER)
-  id: number
+  id: number;
 
   @AllowNull(false)
   @Column(DataType.TEXT)
-  mode: FNStatsAllModesKeys
+  mode: FNStatsAllModesKeys;
 
   @AllowNull(false)
   @Column(DataType.TEXT)
-  field: FNStatsItemsKeys
+  field: FNStatsItemsKeys;
 
   @AllowNull(false)
   @Column(DataType.BIGINT)
-  value: number
+  value: number;
 
   @Index
   @AllowNull(false)
   @ForeignKey(() => SPStats)
   @Column(DataType.INTEGER)
-  statsId: number
+  statsId: number;
 
-  @BelongsTo(() => SPStats, { onDelete: 'cascade' })
-  stats: SPStats
+  @BelongsTo(() => SPStats, { onDelete: "cascade" })
+  stats: SPStats;
 }

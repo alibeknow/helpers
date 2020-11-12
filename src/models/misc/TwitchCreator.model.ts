@@ -8,45 +8,45 @@ import {
   Model,
   PrimaryKey,
   Table,
-  Unique,
-} from 'sequelize-typescript'
-import { ITwitchAuth } from '@wnm.development/fortnite-social-pass-types'
-import { SPUser } from '../users/User.model'
-import { SPTwitchCreatorTask } from './TwitchCreatorTask.model'
+  Unique
+} from "sequelize-typescript";
+import { ITwitchAuth } from "@wnm.development/fortnite-social-pass-types";
+import { SPUser } from "../users/User.model";
+import { SPTwitchCreatorTask } from "./TwitchCreatorTask.model";
 
 @Table({
-  tableName: 'creators',
+  tableName: "creators"
 })
 export class SPTwitchCreator extends Model<SPTwitchCreator> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-  id: number
+  id: number;
 
   @Unique
   @Column(DataType.TEXT)
-  twitchUserId: string
+  twitchUserId: string;
 
   @AllowNull(false)
   @Column(DataType.TEXT)
-  login: string
+  login: string;
 
   @AllowNull(false)
   @Column(DataType.JSON)
-  token: ITwitchAuth
+  token: ITwitchAuth;
 
   @Unique
   @Column(DataType.TEXT)
-  urlToken: string
+  urlToken: string;
 
   @AllowNull(false)
   @Default(33214)
   @Column(DataType.INTEGER)
-  gameId: number
+  gameId: number;
 
   @HasMany(() => SPUser)
-  users: SPUser[]
+  users: SPUser[];
 
   @HasMany(() => SPTwitchCreatorTask)
-  tasks: SPTwitchCreatorTask[]
+  tasks: SPTwitchCreatorTask[];
 }

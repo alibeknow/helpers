@@ -1,44 +1,46 @@
 {
-    "name": "@wnm.development/fortnite-social-pass-backend-helpers",
-    "version": "1.0.11",
-    "tag": "latest",
-    "types": "./dist/index.d.ts",
-    "main": "./dist/index.js",
-    "homepage": "https://gitlab.com/wnm.development/epic-games/social-pass/backend-helpers",
-    "bugs": {
-        "url": "https://gitlab.com/wnm.development/epic-games/social-pass/backend-helpers/issues"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://gitlab.com/wnm.development/epic-games/social-pass/backend-helpers.git"
-    },
-    "engines": {
-        "node": ">=10"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prepare": "npm run build"
-    },
-    "dependencies": {
-        "@wnm.development/fortnite-api": "^1.1.1",
-        "amqplib": "^0.6.0",
-        "ioredis": "^4.19.2",
-        "pg": "^8.5.0",
-        "reflect-metadata": "^0.1.13",
-        "sequelize": "^5.22.3",
-        "sequelize-typescript": "^1.1.0"
-    },
-    "devDependencies": {
-        "@types/amqplib": "^0.5.16",
-        "@types/bluebird": "^3.5.32",
-        "@types/ioredis": "^4.17.7",
-        "@types/node": "^14.14.7",
-        "@types/validator": "^13.1.0",
-        "@wnm.development/fortnite-social-pass-types": "^1.0.8",
-        "ts-loader": "^8.0.11",
-        "typescript": "^4.0.3"
-    },
-    "publishConfig": {
-        "@wnm.development:registry": "https://gitlab.com/api/v4/projects/22328651/packages/npm/"
-    }
+  "name": "@wnm.development/fortnite-social-pass-backend-helpers",
+  "version": "1.0.11",
+  "tag": "latest",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "homepage": "https://gitlab.com/wnm.development/epic-games/social-pass/backend-helpers",
+  "bugs": {
+    "url": "https://gitlab.com/wnm.development/epic-games/social-pass/backend-helpers/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/wnm.development/epic-games/social-pass/backend-helpers.git"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "prettier": "prettier --write src/**/*.ts"
+  },
+  "dependencies": {
+    "@wnm.development/fortnite-api": "^1.1.1",
+    "amqplib": "^0.6.0",
+    "ioredis": "^4.19.2",
+    "pg": "^8.5.0",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^5.22.3",
+    "sequelize-typescript": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.5.16",
+    "@types/bluebird": "^3.5.32",
+    "@types/ioredis": "^4.17.7",
+    "@types/node": "^14.14.7",
+    "@types/validator": "^13.1.0",
+    "@wnm.development/fortnite-social-pass-types": "^1.0.8",
+    "prettier": "^2.1.2",
+    "ts-loader": "^8.0.11",
+    "typescript": "^4.0.3"
+  },
+  "publishConfig": {
+    "@wnm.development:registry": "https://gitlab.com/api/v4/projects/22328651/packages/npm/"
+  }
 }

@@ -1,18 +1,18 @@
 import {
-    AllowNull,
-    AutoIncrement,
-    BelongsTo,
-    BelongsToMany,
-    Column,
-    DataType,
-    ForeignKey,
-    HasMany,
-    Index,
-    IndexOptions,
-    Model,
-    PrimaryKey,
-    Table,
-    Unique,
+  AllowNull,
+  AutoIncrement,
+  BelongsTo,
+  BelongsToMany,
+  Column,
+  DataType,
+  ForeignKey,
+  HasMany,
+  Index,
+  IndexOptions,
+  Model,
+  PrimaryKey,
+  Table,
+  Unique
 } from "sequelize-typescript";
 import { SPTwitchCreator } from "../misc/TwitchCreator.model";
 import { SPEmote } from "../misc/Emote.model";
@@ -22,68 +22,68 @@ import { SPUserDay } from "./UserDay.model";
 import { SPUserTask } from "./UserTask.model";
 import { ISPUserPassType } from "@wnm.development/fortnite-social-pass-types";
 import { SPUserEmote } from "./UserEmote.model";
-import { SPFaq } from '../misc/Faq.model'
+import { SPFaq } from "../misc/Faq.model";
 
 const indexOptions: IndexOptions = {
-    type: "UNIQUE",
-    unique: true,
-    concurrently: true,
-    prefix: "index-",
+  type: "UNIQUE",
+  unique: true,
+  concurrently: true,
+  prefix: "index-"
 };
 
 @Table({
-    modelName: "user",
+  modelName: "user"
 })
 export class SPUser extends Model<SPUser> {
-    @AutoIncrement
-    @PrimaryKey
-    @Column(DataType.INTEGER)
-    id: number;
+  @AutoIncrement
+  @PrimaryKey
+  @Column(DataType.INTEGER)
+  id: number;
 
-    @AllowNull(false)
-    @Unique
-    @Column(DataType.TEXT)
-    nickname: string;
+  @AllowNull(false)
+  @Unique
+  @Column(DataType.TEXT)
+  nickname: string;
 
-    @Column(DataType.BOOLEAN)
-    isFortniteAccountClosed: boolean;
+  @Column(DataType.BOOLEAN)
+  isFortniteAccountClosed: boolean;
 
-    @AllowNull(false)
-    @Index(indexOptions)
-    @Unique
-    @Column(DataType.TEXT)
-    epicUserId: string;
+  @AllowNull(false)
+  @Index(indexOptions)
+  @Unique
+  @Column(DataType.TEXT)
+  epicUserId: string;
 
-    @Index(indexOptions)
-    @Unique
-    @Column(DataType.TEXT)
-    twitchUserId: string;
+  @Index(indexOptions)
+  @Unique
+  @Column(DataType.TEXT)
+  twitchUserId: string;
 
-    @ForeignKey(() => SPTwitchCreator)
-    @Column(DataType.INTEGER)
-    creatorId: number;
+  @ForeignKey(() => SPTwitchCreator)
+  @Column(DataType.INTEGER)
+  creatorId: number;
 
-    @BelongsTo(() => SPTwitchCreator)
-    creator: SPTwitchCreator;
+  @BelongsTo(() => SPTwitchCreator)
+  creator: SPTwitchCreator;
 
-    @AllowNull(false)
-    @Column(DataType.ENUM("SOCIAL", "FAN"))
-    passType: ISPUserPassType;
+  @AllowNull(false)
+  @Column(DataType.ENUM("SOCIAL", "FAN"))
+  passType: ISPUserPassType;
 
-    @BelongsToMany(() => SPEmote, () => SPUserEmote)
-    emotes: SPEmote[];
+  @BelongsToMany(() => SPEmote, () => SPUserEmote)
+  emotes: SPEmote[];
 
-    @HasMany(() => SPUserDrops)
-    drops: SPUserDrops[];
+  @HasMany(() => SPUserDrops)
+  drops: SPUserDrops[];
 
-    @HasMany(() => SPStats, { onDelete: "cascade" })
-    stats: SPStats[];
+  @HasMany(() => SPStats, { onDelete: "cascade" })
+  stats: SPStats[];
 
-    @HasMany(() => SPUserDay, { onDelete: "cascade" })
-    days: SPUserDay[];
+  @HasMany(() => SPUserDay, { onDelete: "cascade" })
+  days: SPUserDay[];
 
-    @HasMany(() => SPUserTask, { onDelete: "cascade" })
-    tasks: SPUserTask[];
-    @HasMany(() => SPUserTask, { onDelete: "cascade" })
-    Faqs: SPFaq[];
+  @HasMany(() => SPUserTask, { onDelete: "cascade" })
+  tasks: SPUserTask[];
+  @HasMany(() => SPUserTask, { onDelete: "cascade" })
+  Faqs: SPFaq[];
 }

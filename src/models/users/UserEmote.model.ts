@@ -8,40 +8,40 @@ import {
   IndexOptions,
   Model,
   PrimaryKey,
-  Table,
-} from 'sequelize-typescript'
-import { SPUser } from './User.model'
-import { SPEmote } from '../misc'
+  Table
+} from "sequelize-typescript";
+import { SPUser } from "./User.model";
+import { SPEmote } from "../misc";
 
 const emoteIndexOptions: IndexOptions = {
-  type: 'UNIQUE',
+  type: "UNIQUE",
   unique: true,
   concurrently: true,
-  prefix: 'index-',
-}
+  prefix: "index-"
+};
 
 @Table({
-  tableName: 'users-emotes',
+  tableName: "users-emotes"
 })
 export class SPUserEmote extends Model<SPUserEmote> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-  id: number
+  id: number;
 
   @Index(emoteIndexOptions)
   @ForeignKey(() => SPUser)
   @Column(DataType.INTEGER)
-  userId: number
+  userId: number;
 
   @BelongsTo(() => SPUser)
-  user: SPUser
+  user: SPUser;
 
   @Index(emoteIndexOptions)
   @ForeignKey(() => SPEmote)
   @Column(DataType.INTEGER)
-  emoteId: number
+  emoteId: number;
 
   @BelongsTo(() => SPEmote)
-  emote: SPEmote
+  emote: SPEmote;
 }

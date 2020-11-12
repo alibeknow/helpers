@@ -1,12 +1,12 @@
-import { Sequelize, SequelizeOptions } from 'sequelize-typescript'
+import { Sequelize, SequelizeOptions } from "sequelize-typescript";
 
 interface SequelizeCreateOptions {
-  host: SequelizeOptions['host']
-  port: SequelizeOptions['port']
-  database: SequelizeOptions['database']
-  username: SequelizeOptions['username']
-  password: SequelizeOptions['password']
-  options?: Partial<Omit<SequelizeOptions, 'host' | 'port' | 'database' | 'username' | 'password'>>
+  host: SequelizeOptions["host"]
+  port: SequelizeOptions["port"]
+  database: SequelizeOptions["database"]
+  username: SequelizeOptions["username"]
+  password: SequelizeOptions["password"]
+  options?: Partial<Omit<SequelizeOptions, "host" | "port" | "database" | "username" | "password">>
 }
 
 /**
@@ -19,8 +19,8 @@ export function SPCreateRawSequelizeInstance(settings?: SequelizeCreateOptions):
     database,
     username,
     password,
-    options = {},
-  } = settings || {}
+    options = {}
+  } = settings || {};
 
   return new Sequelize({
     host,
@@ -28,15 +28,15 @@ export function SPCreateRawSequelizeInstance(settings?: SequelizeCreateOptions):
     database,
     username,
     password,
-    dialect: 'postgres',
+    dialect: "postgres",
     logging: false,
     ...options,
     models: [`${ __dirname }/../models/**/*.model.ts`, `${ __dirname }/../models/**/*.model.js`],
     modelMatch: (filename, member) => {
-      return 'SP' + filename.substring(0, filename.indexOf('.model')) === member
+      return "SP" + filename.substring(0, filename.indexOf(".model")) === member;
     },
-    repositoryMode: true,
-  })
+    repositoryMode: true
+  });
 }
 
 /**
@@ -48,18 +48,18 @@ export async function SPCreateSequelizeInstance(): Promise<Sequelize>
  */
 export async function SPCreateSequelizeInstance(settings: SequelizeCreateOptions): Promise<Sequelize | Error>
 export async function SPCreateSequelizeInstance(settings?: SequelizeCreateOptions): Promise<Sequelize | Error> {
-  const pg = await import('pg')
-  pg.defaults.parseInt8 = true
-  const sequelize = SPCreateRawSequelizeInstance(settings)
+  const pg = await import("pg");
+  pg.defaults.parseInt8 = true;
+  const sequelize = SPCreateRawSequelizeInstance(settings);
 
   if (settings?.host) {
     try {
-      await sequelize.authenticate()
+      await sequelize.authenticate();
     }
     catch (e) {
-      return e
+      return e;
     }
   }
 
-  return sequelize
+  return sequelize;
 }

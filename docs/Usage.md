@@ -2,7 +2,8 @@
 
 ## Установка
 
-* Выполните интеграцию Gitlab + NPM, если еще этого не сделали ([руководство](https://gitlab.com/wnm.development/wnm/vue-development/-/blob/master/docs/Create.md))
+* Выполните интеграцию Gitlab + NPM, если еще этого не
+  сделали ([руководство](https://gitlab.com/wnm.development/wnm/vue-development/-/blob/master/docs/Create.md))
 * `npm i --save @wnm.development/fortnite-social-pass-backend-helpers`
 
 ## Публикация
