@@ -1,6 +1,6 @@
 {
   "name": "@wnm.development/fortnite-social-pass-backend-helpers",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "tag": "latest",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
@@ -21,7 +21,7 @@
     "prettier": "prettier --write src/**/*.ts"
   },
   "dependencies": {
-    "@wnm.development/fortnite-api": "^1.1.1",
+    "@wnm.development/fortnite-api": "^1.1.2",
     "amqplib": "^0.6.0",
     "ioredis": "^4.19.2",
     "pg": "^8.5.0",

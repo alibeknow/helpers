@@ -64,22 +64,20 @@ export class SPModelsHelperUser {
   async createUserNotification<T extends keyof ISPUserNotifications>({
                                                                        notification,
                                                                        additionalFields,
-                                                                       userId,
                                                                        updateRedis = true
                                                                      }: {
     notification: T
     additionalFields: ISPUserNotifications[T]["additionalFields"],
-    userId: number
     updateRedis?: boolean
   }): Promise<SPUserNotification> {
     const notificationModel = await this.sequelize.getRepository(SPUserNotification).create({
       type: notification,
       additionalFields,
-      userId
+      userId: this.user.id
     });
 
     if (updateRedis) {
-      const user = await this.instance.redis.getUserFromRedis(userId);
+      const user = await this.instance.redis.getUserFromRedis(this.user.id);
       if (user) {
         user.notifications.unshift(this.createUserNotificationFromModel(notificationModel));
         await this.instance.redis.setUserToRedis(user);
@@ -117,7 +115,7 @@ export class SPModelsHelperUser {
       this.instance.redis.getCreators()
     ]);
 
-    const creator = creators.find(x => x.id === this.user.id);
+    const creator = creators.find(x => x.id === this.user.creatorId);
 
     const additionalTasks: [SPUserTask, SPTask][] = this.user.tasks.filter(x => !x.dayId).map(task => {
       const originalTask = tasks.find(x => x.id === task.taskId);

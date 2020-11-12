@@ -2,12 +2,7 @@ import { Sequelize } from "sequelize-typescript";
 import { Redis } from "ioredis";
 import { ISPTask } from "@wnm.development/fortnite-social-pass-types";
 import { SPTask, SPTwitchCreatorTask, SPUserTask } from "../../models";
-import {
-  FNStatsAllModesKeys,
-  FNStatsItemsKeys,
-  FNStatsModes,
-  FNStatsTemporalModes
-} from "@wnm.development/fortnite-api";
+import { FNStatsAllModesArray, FNStatsAllModesKeys, FNStatsItemsKeys } from "@wnm.development/fortnite-api";
 
 export class SPModelsHelperTasks {
   sequelize: Sequelize;
@@ -26,10 +21,7 @@ export class SPModelsHelperTasks {
       if (typeof task.condition.fields === "string") fields = [task.condition.fields];
       else fields = task.condition.fields;
 
-      if (task.condition.modes === "all") modes = [
-        ...Object.keys(FNStatsModes),
-        ...Object.keys(FNStatsTemporalModes)
-      ] as FNStatsAllModesKeys[];
+      if (task.condition.modes === "all") modes = FNStatsAllModesArray;
       else if (typeof task.condition.modes === "string") modes = [task.condition.modes];
       else modes = task.condition.modes;
     }
