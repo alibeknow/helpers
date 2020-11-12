@@ -5,6 +5,7 @@ import type { SPModelsHelper } from './index'
 import { FindOptions, WhereOptions } from 'sequelize'
 import { ISPTaskDays, ISPUser, ISPUserDay } from '@wnm.development/fortnite-social-pass-types'
 import { SPGetCurrentDay } from '../user'
+import { SPEndDate, SPStartDate } from '../constants'
 
 export class SPModelsHelperUser {
   sequelize: Sequelize
@@ -147,6 +148,8 @@ export class SPModelsHelperUser {
       additionalTasks: await Promise.all(additionalTasks.map(tasks => this.instance.tasks.createTaskFromModel(...tasks))),
       creatorTasks: await Promise.all(creatorTasks.map(tasks => this.instance.tasks.createTaskFromModel(...tasks))),
       days: [],
+      startDateEvent:SPStartDate.getTime(),
+      endDateEvent:SPEndDate.getTime()
     }
   }
 }
