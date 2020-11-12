@@ -115,7 +115,7 @@ export class SPModelsHelperUser {
       this.instance.redis.getCreators()
     ]);
 
-    const creator = creators.find(x => x.id === this.user.creatorId);
+    const creator = creators.find(x => x.id == this.user.creatorId);
 
     const additionalTasks: [SPUserTask, SPTask][] = this.user.tasks.filter(x => !x.dayId).map(task => {
       const originalTask = tasks.find(x => x.id === task.taskId);
