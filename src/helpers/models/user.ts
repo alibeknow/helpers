@@ -148,8 +148,8 @@ export class SPModelsHelperUser {
       additionalTasks: await Promise.all(additionalTasks.map(tasks => this.instance.tasks.createTaskFromModel(...tasks))),
       creatorTasks: await Promise.all(creatorTasks.map(tasks => this.instance.tasks.createTaskFromModel(...tasks))),
       days: [],
-      startDateEvent:SPStartDate.getTime(),
-      endDateEvent:SPEndDate.getTime()
+      startDateEvent:SPStartDate.getTime() as number,
+      endDateEvent:SPEndDate.getTime() as number
     }
   }
 }
