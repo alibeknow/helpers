@@ -1,4 +1,4 @@
-import { connect, Connection, ConsumeMessage } from 'amqplib'
+import { connect, Connection, ConsumeMessage, Replies } from 'amqplib'
 import { Model } from 'sequelize-typescript'
 
 interface getMessagesOptions {
@@ -95,5 +95,17 @@ export class SPRabbitMQ {
     await channel.close()
 
     return convertedMessages
+  }
+
+  async getQueueSize(queue?: string): Promise<Replies.AssertQueue['messageCount']> {
+    this.checkIfReady()
+    const channel = await this.rabbit?.createChannel()
+    if (!channel) throw new Error('Failed to create RabbitMQ channel')
+
+    const assert = await channel.assertQueue(queue || this.defaultQueue)
+
+    await channel.close()
+
+    return assert.messageCount
   }
 }
