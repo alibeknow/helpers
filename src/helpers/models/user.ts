@@ -1,9 +1,15 @@
 import { Sequelize } from "sequelize-typescript";
 import { Redis } from "ioredis";
-import { SPTask, SPTwitchCreatorTask, SPUser, SPUserDay, SPUserTask } from "../../models";
+import { SPTask, SPTwitchCreatorTask, SPUser, SPUserDay, SPUserNotification, SPUserTask } from "../../models";
 import type { SPModelsHelper } from "./index";
 import { FindOptions, WhereOptions } from "sequelize";
-import { ISPTaskDays, ISPUser, ISPUserDay } from "@wnm.development/fortnite-social-pass-types";
+import {
+  ISPTaskDays,
+  ISPUser,
+  ISPUserDay,
+  ISPUserNotification,
+  ISPUserNotifications
+} from "@wnm.development/fortnite-social-pass-types";
 import { SPFilterUserDays, SPGetCurrentDay } from "../user";
 import { SPEndDate, SPStartDate } from "../constants";
 
@@ -24,11 +30,13 @@ export class SPModelsHelperUser {
     return {
       order: [
         [{ model: sequelize.getRepository(SPUserDay), as: "days" }, "day", "ASC"],
-        [{ model: sequelize.getRepository(SPUserTask), as: "tasks" }, "id", "ASC"]
+        [{ model: sequelize.getRepository(SPUserTask), as: "tasks" }, "id", "ASC"],
+        [{ model: sequelize.getRepository(SPUserNotification), as: "notifications" }, "id", "DESC"]
       ],
       include: [
         sequelize.getRepository(SPUserTask),
-        sequelize.getRepository(SPUserDay)
+        sequelize.getRepository(SPUserDay),
+        sequelize.getRepository(SPUserNotification)
       ]
     };
   }
@@ -46,33 +54,57 @@ export class SPModelsHelperUser {
   }
 
   getUserRelationsFindOptions(): FindOptions {
-    return {
-      order: [
-        [{ model: this.sequelize.getRepository(SPUserDay), as: "days" }, "day", "ASC"],
-        [{ model: this.sequelize.getRepository(SPUserTask), as: "tasks" }, "id", "ASC"]
-      ],
-      include: [
-        this.sequelize.getRepository(SPUserTask),
-        this.sequelize.getRepository(SPUserDay)
-      ]
-    };
+    return SPModelsHelperUser.getUserRelationsFindOptions(this.sequelize);
   }
 
   findUserWithRelations(user: SPUser | number, findOptions: WhereOptions = {}): Promise<SPUser> {
-    return this.sequelize.getRepository(SPUser).findOne(
-      {
-        ...this.getUserRelationsFindOptions(),
-        where: {
-          id: typeof user === "number" ? user : user.id,
-          ...findOptions
-        }
+    return SPModelsHelperUser.findUserWithRelations(user, this.sequelize, findOptions);
+  }
+
+  async createUserNotification<T extends keyof ISPUserNotifications>({
+                                                                       notification,
+                                                                       additionalFields,
+                                                                       userId,
+                                                                       updateRedis = true
+                                                                     }: {
+    notification: T
+    additionalFields: ISPUserNotifications[T]["additionalFields"],
+    userId: number
+    updateRedis?: boolean
+  }): Promise<SPUserNotification> {
+    const notificationModel = await this.sequelize.getRepository(SPUserNotification).create({
+      type: notification,
+      additionalFields,
+      userId
+    });
+
+    if (updateRedis) {
+      const user = await this.instance.redis.getUserFromRedis(userId);
+      if (user) {
+        user.notifications.unshift(this.createUserNotificationFromModel(notificationModel));
+        await this.instance.redis.setUserToRedis(user);
       }
-    );
+    }
+
+    return notificationModel;
+  }
+
+  static createUserNotificationFromModel<T extends keyof ISPUserNotifications>(notification: Omit<SPUserNotification, "type"> & { type: T }): ISPUserNotification<T> {
+    return {
+      id: notification.id,
+      type: notification.type,
+      additionalFields: notification.additionalFields as ISPUserNotification<T>["additionalFields"],
+      createdAt: notification.createdAt.toISOString()
+    };
+  }
+
+  createUserNotificationFromModel<T extends keyof ISPUserNotifications>(notification: Omit<SPUserNotification, "type"> & { type: T }): ISPUserNotification<T> {
+    return SPModelsHelperUser.createUserNotificationFromModel<T>(notification);
   }
 
   async createUserFromModel(ignoreMissingRelations = false): Promise<ISPUser> {
-    if (!this.user.tasks || !this.user.days) {
-      if (!ignoreMissingRelations) throw new Error("SPDay or SPUserTask are missing in passed user in SPModelsHelperUser. You have to include them");
+    if (!this.user.tasks || !this.user.days || !this.user.notifications) {
+      if (!ignoreMissingRelations) throw new Error("SPDay, SPUserNotification or SPUserTask are missing in passed user in SPModelsHelperUser. You have to include them");
       else {
         const newUser = await this.findUserWithRelations(this.user);
         if (!newUser) throw new Error("User not found in SPModelsHelperUser");
@@ -114,7 +146,8 @@ export class SPModelsHelperUser {
       creatorTasks: await Promise.all(creatorTasks.map(tasks => this.instance.tasks.createTaskFromModel(...tasks))),
       days: await this.createUserDays(tasks),
       startDateEvent: SPStartDate.getTime(),
-      endDateEvent: SPEndDate.getTime()
+      endDateEvent: SPEndDate.getTime(),
+      notifications: this.user.notifications.filter(x => !x.seen).sort((a, b) => b.id - a.id).map(x => this.createUserNotificationFromModel(x))
     };
   }
 
