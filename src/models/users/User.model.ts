@@ -86,7 +86,7 @@ export class SPUser extends Model<SPUser> {
   @HasMany(() => SPUserTask, { onDelete: "cascade" })
   tasks: SPUserTask[];
 
-  @HasMany(() => SPUserTask, { onDelete: "cascade" })
+  @HasMany(() => SPFaq, { onDelete: "cascade" })
   Faqs: SPFaq[];
 
   @HasMany(() => SPUserNotification, { onDelete: "cascade" })
