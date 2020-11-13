@@ -61,7 +61,7 @@ export class SPUser extends Model<SPUser> {
   twitchUserId: string;
 
   @Column(DataType.JSON)
-  token: ITwitchAuth
+  token: ITwitchAuth | null
 
   @Column(DataType.DATE)
   tokenExpiresTime: number
