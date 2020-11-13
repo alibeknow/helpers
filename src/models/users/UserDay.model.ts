@@ -34,6 +34,11 @@ export class SPUserDay extends Model<SPUserDay> {
   @Column(DataType.BOOLEAN)
   completed: boolean;
 
+  @Default(false)
+  @AllowNull(false)
+  @Column(DataType.BOOLEAN)
+  awardGiven: boolean;
+
   @Index
   @ForeignKey(() => SPUser)
   @AllowNull(false)
