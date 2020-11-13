@@ -64,7 +64,6 @@ export class SPUser extends Model<SPUser> {
   @Column(DataType.JSON)
   token: ITwitchAuth
 
-  @AllowNull(false)
   @Column(DataType.DATE)
   tokenExpiresTime: number
 
