@@ -4,6 +4,7 @@ import {
   BelongsTo,
   BelongsToMany,
   Column,
+  createIndexDecorator,
   DataType,
   ForeignKey,
   HasMany,
@@ -32,6 +33,8 @@ const indexOptions: IndexOptions = {
   prefix: "index-"
 };
 
+const TwitchTokenIndex = createIndexDecorator();
+
 @Table({
   modelName: "user"
 })
@@ -55,16 +58,18 @@ export class SPUser extends Model<SPUser> {
   @Column(DataType.TEXT)
   epicUserId: string;
 
+  @TwitchTokenIndex
   @Index(indexOptions)
   @Unique
   @Column(DataType.TEXT)
-  twitchUserId: string;
+  twitchUserId: string | null;
 
   @Column(DataType.JSON)
-  token: ITwitchAuth | null
+  token: ITwitchAuth | null;
 
-  @Column('TIMESTAMP')
-  tokenExpiresDate: Date | null
+  @TwitchTokenIndex
+  @Column("TIMESTAMP")
+  tokenExpiresDate: Date | null;
 
   @ForeignKey(() => SPTwitchCreator)
   @Column(DataType.INTEGER)
