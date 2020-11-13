@@ -63,7 +63,7 @@ export class SPUser extends Model<SPUser> {
   @Column(DataType.JSON)
   token: ITwitchAuth | null
 
-  @Column(DataType.DATE)
+  @Column('TIMESTAMP')
   tokenExpiresDate: Date | null
 
   @ForeignKey(() => SPTwitchCreator)
