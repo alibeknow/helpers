@@ -135,7 +135,7 @@ export class SPModelsHelperUser {
       id: this.user.id,
       isFortniteAccountClosed: this.user.isFortniteAccountClosed,
       epicUserId: this.user.epicUserId,
-      creatorId: this.user.creatorId,
+      creatorId: this.user.creatorId ? +this.user.creatorId : null,
       createdAt: this.user.createdAt,
       nickname: this.user.nickname,
       passType: this.user.passType,

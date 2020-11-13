@@ -13,7 +13,7 @@ export function SPFilterUserDays<T extends Pick<SPUserDay, "day"> & { [key: stri
 (user: Pick<SPUser, "passType"> & { [key: string]: any }, days: T[]): T[] {
   return days.filter(day => {
     if (user.passType === "SOCIAL") return true;
-    if (day.day !== ISPTaskDays.tue && day.day !== ISPTaskDays.sun) return true;
+    // if (day.day !== ISPTaskDays.tue && day.day !== ISPTaskDays.sun) return true;
     return false;
   });
 }
