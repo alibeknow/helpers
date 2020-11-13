@@ -20,7 +20,7 @@ import { SPUserDrops } from "./UserDrops.model";
 import { SPStats } from "../stats/Stats.model";
 import { SPUserDay } from "./UserDay.model";
 import { SPUserTask } from "./UserTask.model";
-import { ISPUserPassType } from "@wnm.development/fortnite-social-pass-types";
+import { ISPUserPassType, ITwitchAuth } from "@wnm.development/fortnite-social-pass-types";
 import { SPUserEmote } from "./UserEmote.model";
 import { SPFaq } from "../misc/Faq.model";
 import { SPUserNotification } from "./UserNotification.model";
@@ -59,6 +59,14 @@ export class SPUser extends Model<SPUser> {
   @Unique
   @Column(DataType.TEXT)
   twitchUserId: string;
+
+  @AllowNull(false)
+  @Column(DataType.JSON)
+  token: ITwitchAuth
+
+  @AllowNull(false)
+  @Column(DataType.DATE)
+  tokenExpiresTime: number
 
   @ForeignKey(() => SPTwitchCreator)
   @Column(DataType.INTEGER)
