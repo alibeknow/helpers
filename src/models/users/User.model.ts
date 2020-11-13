@@ -60,7 +60,6 @@ export class SPUser extends Model<SPUser> {
   @Column(DataType.TEXT)
   twitchUserId: string;
 
-  @AllowNull(false)
   @Column(DataType.JSON)
   token: ITwitchAuth
 
