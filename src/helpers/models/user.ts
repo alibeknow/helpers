@@ -26,17 +26,29 @@ export class SPModelsHelperUser {
     this.instance = instance;
   }
 
-  static getUserRelationsFindOptions(sequelize: Sequelize): FindOptions {
-    return {
+  static getUserRelationsFindOptions(sequelize: Sequelize, separate?: boolean): FindOptions {
+    if (!separate) return {
       order: [
         [{ model: sequelize.getRepository(SPUserDay), as: "days" }, "day", "ASC"],
-        [{ model: sequelize.getRepository(SPUserTask), as: "tasks" }, "id", "ASC"],
-        [{ model: sequelize.getRepository(SPUserNotification), as: "notifications" }, "id", "DESC"]
+        [{ model: sequelize.getRepository(SPUserTask), as: "tasks" }, "id", "ASC"]
       ],
       include: [
         sequelize.getRepository(SPUserTask),
-        sequelize.getRepository(SPUserDay),
-        sequelize.getRepository(SPUserNotification)
+        sequelize.getRepository(SPUserDay)
+      ]
+    };
+    else return {
+      include: [
+        {
+          model: sequelize.getRepository(SPUserTask),
+          separate: true,
+          order: [["id", "ASC"]]
+        },
+        {
+          model: sequelize.getRepository(SPUserDay),
+          separate: true,
+          order: [["day", "ASC"]]
+        }
       ]
     };
   }
@@ -53,8 +65,8 @@ export class SPModelsHelperUser {
     );
   }
 
-  getUserRelationsFindOptions(): FindOptions {
-    return SPModelsHelperUser.getUserRelationsFindOptions(this.sequelize);
+  getUserRelationsFindOptions(separate?: boolean): FindOptions {
+    return SPModelsHelperUser.getUserRelationsFindOptions(this.sequelize, separate);
   }
 
   findUserWithRelations(user: SPUser | number, findOptions: WhereOptions = {}): Promise<SPUser> {
@@ -101,8 +113,8 @@ export class SPModelsHelperUser {
   }
 
   async createUserFromModel(ignoreMissingRelations = false): Promise<ISPUser> {
-    if (!this.user.tasks || !this.user.days || !this.user.notifications) {
-      if (!ignoreMissingRelations) throw new Error("SPDay, SPUserNotification or SPUserTask are missing in passed user in SPModelsHelperUser. You have to include them");
+    if (!this.user.tasks || !this.user.days) {
+      if (!ignoreMissingRelations) throw new Error("SPDay or SPUserTask are missing in passed user in SPModelsHelperUser. You have to include them");
       else {
         const newUser = await this.findUserWithRelations(this.user);
         if (!newUser) throw new Error("User not found in SPModelsHelperUser");
@@ -145,7 +157,9 @@ export class SPModelsHelperUser {
       days: await this.createUserDays(tasks),
       startDateEvent: SPStartDate.getTime(),
       endDateEvent: SPEndDate.getTime(),
-      notifications: this.user.notifications.filter(x => !x.seen).sort((a, b) => b.id - a.id).map(x => this.createUserNotificationFromModel(x))
+      notifications: []
+      // notifications: this.user.notifications.filter(x => !x.seen).sort((a, b) => b.id - a.id).map(x =>
+      // this.createUserNotificationFromModel(x))
     };
   }
 
