@@ -60,7 +60,7 @@ export class SPUser extends Model<SPUser> {
 
   @TwitchTokenIndex
   @Index(indexOptions)
-  @Unique
+  // @Unique
   @Column(DataType.TEXT)
   twitchUserId: string | null;
 
