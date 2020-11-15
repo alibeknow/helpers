@@ -59,8 +59,9 @@ export class SPUser extends Model<SPUser> {
   epicUserId: string;
 
   @TwitchTokenIndex
-  @Index(indexOptions)
+  // @Index(indexOptions)
   // @Unique
+  @Index
   @Column(DataType.TEXT)
   twitchUserId: string | null;
 
