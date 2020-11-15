@@ -35,6 +35,9 @@ export class SPTwitchCreator extends Model<SPTwitchCreator> {
   @Column(DataType.JSON)
   token: ITwitchAuth;
 
+  @Column("TIMESTAMP")
+  tokenExpiresDate: Date | null;
+
   @Unique
   @Column(DataType.TEXT)
   urlToken: string;
