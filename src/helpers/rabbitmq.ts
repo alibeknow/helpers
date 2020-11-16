@@ -75,8 +75,6 @@ export class SPRabbitMQ {
 
     await channel.consume(options.queue || this.defaultQueue, (message) => {
       if (message) messages.push(message);
-    }, {
-      noAck: true
     });
 
     const convertedMessages: T[] = [];
