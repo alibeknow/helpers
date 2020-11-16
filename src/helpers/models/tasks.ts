@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
 import { Redis } from "ioredis";
 import { ISPTask } from "@wnm.development/fortnite-social-pass-types";
-import { SPTask, SPTwitchCreatorTask, SPUserTask } from "../../models";
+import { SPTask, SPCommunityGoalTask, SPUserTask } from "../../models";
 import { FNStatsAllModesArray, FNStatsAllModesKeys, FNStatsItemsKeys } from "@wnm.development/fortnite-api";
 
 export class SPModelsHelperTasks {
@@ -13,7 +13,7 @@ export class SPModelsHelperTasks {
     this.redis = redis;
   }
 
-  async createTaskFromModel(personalTask: SPUserTask | SPTwitchCreatorTask, task: SPTask): Promise<ISPTask> {
+  async createTaskFromModel(personalTask: SPUserTask | SPCommunityGoalTask, task: SPTask): Promise<ISPTask> {
     let fields: FNStatsItemsKeys[] = [];
     let modes: FNStatsAllModesKeys[] = [];
 

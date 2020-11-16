@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { Redis } from "ioredis";
-import { SPTask, SPTwitchCreatorTask, SPUser, SPUserDay, SPUserNotification, SPUserTask } from "../../models";
+import { SPTask, SPCommunityGoalTask, SPUser, SPUserDay, SPUserNotification, SPUserTask } from "../../models";
 import type { SPModelsHelper } from "./index";
 import { FindOptions, WhereOptions } from "sequelize";
 import {
@@ -122,9 +122,10 @@ export class SPModelsHelperUser {
       }
     }
 
-    const [tasks, creators] = await Promise.all([
+    const [tasks, creators, cgTasks] = await Promise.all([
       this.instance.redis.getTasks(),
-      this.instance.redis.getCreators()
+      this.instance.redis.getCreators(),
+      this.instance.redis.getCommunityGoalTasks(),
     ]);
 
     const creator = creators.find(x => x.id == this.user.creatorId);
@@ -136,7 +137,7 @@ export class SPModelsHelperUser {
       return [task, originalTask];
     });
 
-    const creatorTasks: [SPTwitchCreatorTask, SPTask][] = creator?.tasks.map(task => {
+    const creatorTasks: [SPCommunityGoalTask, SPTask][] = cgTasks.map(task => {
       const originalTask = tasks.find(x => x.id === task.taskId);
       if (!originalTask) throw new Error("Original task not found in creator tasks in createUserFromModel");
 

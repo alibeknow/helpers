@@ -1,8 +1,8 @@
-import { Model, Sequelize } from "sequelize-typescript";
-import { Redis } from "ioredis";
-import { SPEmote, SPTask, SPTwitchCreator, SPTwitchCreatorTask } from "../../models";
-import { getCreatorsKey, getEmotesKey, getTasksKey, getUserKey } from "../redis-keys";
-import { ISPUser } from "@wnm.development/fortnite-social-pass-types";
+import { Model, Sequelize } from 'sequelize-typescript';
+import { Redis } from 'ioredis';
+import { SPCommunityGoalTask, SPEmote, SPTask, SPTwitchCreator } from '../../models';
+import { getCGKey, getCreatorsKey, getEmotesKey, getTasksKey, getUserKey } from '../redis-keys';
+import { ISPUser } from '@wnm.development/fortnite-social-pass-types';
 
 interface GetKeyFromRedisOptions<T extends Record<string, any> | any[]> {
   key: string
@@ -22,7 +22,7 @@ export class SPModelsHelperRedis {
   async getDataFromRedis<T extends Record<string, any> | any[]>({
                                                                   key,
                                                                   cacheForMinutes = 5,
-                                                                  getFunction
+                                                                  getFunction,
                                                                 }: GetKeyFromRedisOptions<T>): Promise<T> {
     const writeDateKey = `${ key }:i-write-date`;
     const data = await this.redis.get(key);
@@ -33,7 +33,7 @@ export class SPModelsHelperRedis {
       if (dbData instanceof Model) dbData = dbData.toJSON() as T;
       else if (Array.isArray(dbData)) {
         dbData = dbData.map((data) => {
-          if (typeof data === "object" && data instanceof Model) data = data.toJSON();
+          if (typeof data === 'object' && data instanceof Model) data = data.toJSON();
 
           return data;
         }) as T;
@@ -51,14 +51,21 @@ export class SPModelsHelperRedis {
   getTasks(): Promise<SPTask[]> {
     return this.getDataFromRedis({
       key: getTasksKey(),
-      getFunction: (sequelize) => sequelize?.getRepository(SPTask).findAll({ order: [["id", "ASC"]] })
+      getFunction: (sequelize) => sequelize?.getRepository(SPTask).findAll({ order: [['id', 'ASC']] }),
+    });
+  }
+
+  getCommunityGoalTasks(): Promise<SPCommunityGoalTask[]> {
+    return this.getDataFromRedis({
+      key: getCGKey(),
+      getFunction: (sequelize) => sequelize?.getRepository(SPCommunityGoalTask).findAll({ order: [['id', 'ASC']] }),
     });
   }
 
   getEmotes(): Promise<SPEmote[]> {
     return this.getDataFromRedis({
       key: getEmotesKey(),
-      getFunction: (sequelize) => sequelize?.getRepository(SPEmote).findAll({ order: [["id", "ASC"]] })
+      getFunction: (sequelize) => sequelize?.getRepository(SPEmote).findAll({ order: [['id', 'ASC']] }),
     });
   }
 
@@ -66,9 +73,8 @@ export class SPModelsHelperRedis {
     return this.getDataFromRedis({
       key: getCreatorsKey(),
       getFunction: (sequelize) => sequelize?.getRepository(SPTwitchCreator).findAll({
-        include: [sequelize.getRepository(SPTwitchCreatorTask)],
-        order: [["id", "ASC"], [{ model: sequelize.getRepository(SPTwitchCreatorTask), as: "tasks" }, "id", "ASC"]]
-      })
+        order: [['id', 'ASC']],
+      }),
     });
   }
 

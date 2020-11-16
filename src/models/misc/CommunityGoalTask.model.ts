@@ -8,15 +8,15 @@ import {
   ForeignKey,
   Model,
   PrimaryKey,
-  Table
-} from "sequelize-typescript";
-import { SPTwitchCreator } from "./TwitchCreator.model";
-import { SPTask } from "./Task.model";
+  Table,
+  Unique,
+} from 'sequelize-typescript';
+import { SPTask } from './Task.model';
 
 @Table({
-  tableName: "creators-tasks"
+  tableName: 'community-goal-tasks',
 })
-export class SPTwitchCreatorTask extends Model<SPTwitchCreatorTask> {
+export class SPCommunityGoalTask extends Model<SPCommunityGoalTask> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
@@ -39,17 +39,10 @@ export class SPTwitchCreatorTask extends Model<SPTwitchCreatorTask> {
 
   @ForeignKey(() => SPTask)
   @AllowNull(false)
+  @Unique
   @Column(DataType.INTEGER)
   taskId: number;
 
-  @BelongsTo(() => SPTask, { onDelete: "cascade" })
+  @BelongsTo(() => SPTask, { onDelete: 'cascade' })
   task: SPTask;
-
-  @ForeignKey(() => SPTwitchCreator)
-  @AllowNull(false)
-  @Column(DataType.INTEGER)
-  creatorId: number;
-
-  @BelongsTo(() => SPTwitchCreator, { onDelete: "cascade" })
-  creator: SPTwitchCreator;
 }

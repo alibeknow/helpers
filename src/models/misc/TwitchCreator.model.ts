@@ -8,14 +8,13 @@ import {
   Model,
   PrimaryKey,
   Table,
-  Unique
-} from "sequelize-typescript";
-import { ITwitchAuth } from "@wnm.development/fortnite-social-pass-types";
-import { SPUser } from "../users/User.model";
-import { SPTwitchCreatorTask } from "./TwitchCreatorTask.model";
+  Unique,
+} from 'sequelize-typescript';
+import { ITwitchAuth } from '@wnm.development/fortnite-social-pass-types';
+import { SPUser } from '../users/User.model';
 
 @Table({
-  tableName: "creators"
+  tableName: 'creators',
 })
 export class SPTwitchCreator extends Model<SPTwitchCreator> {
   @AutoIncrement
@@ -35,7 +34,7 @@ export class SPTwitchCreator extends Model<SPTwitchCreator> {
   @Column(DataType.JSON)
   token: ITwitchAuth;
 
-  @Column("TIMESTAMP")
+  @Column('TIMESTAMP')
   tokenExpiresDate: Date | null;
 
   @Unique
@@ -49,7 +48,4 @@ export class SPTwitchCreator extends Model<SPTwitchCreator> {
 
   @HasMany(() => SPUser)
   users: SPUser[];
-
-  @HasMany(() => SPTwitchCreatorTask)
-  tasks: SPTwitchCreatorTask[];
 }
