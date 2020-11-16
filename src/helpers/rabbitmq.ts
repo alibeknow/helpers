@@ -73,11 +73,16 @@ export class SPRabbitMQ {
     await channel.prefetch(options.limit, false);
     const messages: ConsumeMessage[] = [];
 
-    await channel.consume(options.queue || this.defaultQueue, (message) => {
-      if (message) messages.push(message);
-    }, {
-      noAck: true
-    });
+    do {
+      const oldMessagesLength = messages.length;
+      await channel.consume(options.queue || this.defaultQueue, (message) => {
+        if (message) messages.push(message);
+      }, {
+        noAck: true
+      });
+      const newMessagesLength = messages.length;
+      if (oldMessagesLength === newMessagesLength) break;
+    } while (messages.length < options.limit);
 
     const convertedMessages: T[] = [];
 
