@@ -87,6 +87,8 @@ export class SPRabbitMQ {
       else convertedMessages.push(convertedMessage as T);
     }
 
+    await Promise.all(messages.map(message => channel.ack(message, false)));
+
     await channel.close();
 
     return convertedMessages;
