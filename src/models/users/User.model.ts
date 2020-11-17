@@ -83,6 +83,10 @@ export class SPUser extends Model<SPUser> {
   @Column(DataType.ENUM("SOCIAL", "FAN"))
   passType: ISPUserPassType;
 
+  @AllowNull(false)
+  @Column(DataType.ENUM("SOCIAL", "FAN"))
+  OldPassType: ISPUserPassType;
+
   @BelongsToMany(() => SPEmote, () => SPUserEmote)
   emotes: SPEmote[];
 
