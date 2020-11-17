@@ -158,6 +158,7 @@ export class SPModelsHelperUser {
       days: await this.createUserDays(tasks),
       startDateEvent: SPStartDate.getTime(),
       endDateEvent: SPEndDate.getTime(),
+      OldPassType:this.user.OldPassType,
       notifications: []
       // notifications: this.user.notifications.filter(x => !x.seen).sort((a, b) => b.id - a.id).map(x =>
       // this.createUserNotificationFromModel(x))
