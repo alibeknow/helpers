@@ -38,6 +38,9 @@ export class SPFaq extends Model<SPFaq> {
   @Column(DataType.ENUM("Bug detected", "No points counted", "No account is linked", "Other"))
   issue: "Bug detected" | "No points counted" | "No account is linked" | "Other";
 
+  @Column({ type: DataType.TEXT })
+  text: string
+
   @ForeignKey(() => SPUser)
   @AllowNull(true)
   @Column
